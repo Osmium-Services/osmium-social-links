@@ -1,0 +1,44 @@
+<?php $e = static fn($v) => \htmlspecialchars((string) $v); ?>
+<div class="d-flex justify-content-between align-items-center py-3 mb-4">
+    <h4 class="mb-0">
+        <span class="text-muted fw-light">Services /</span> Social Links
+    </h4>
+    <button type="submit" form="settings-form" class="btn btn-primary">
+        <i class="bx bx-save me-1"></i> Save Settings
+    </button>
+</div>
+
+<?php if ($admin['settingsSaved']): ?>
+    <div class="alert alert-success alert-dismissible fade show" role="alert">
+        Settings saved.
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+<?php endif; ?>
+
+<?php if ($admin['settingsError'] ?? false): ?>
+    <div class="alert alert-danger alert-dismissible fade show" role="alert">
+        <?= $e($admin['settingsError']) ?>
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+<?php endif; ?>
+
+<form method="POST" action="<?= $admin['basePath'] ?>settings/social-links/" id="settings-form">
+    <input type="hidden" name="token" value="<?= $template['formToken'] ?? '' ?>">
+    <div class="row">
+        <div class="col-lg-6">
+            <div class="card mb-4">
+                <div class="card-header"><h5 class="mb-0"><i class="bx bx-share-alt me-2"></i>Profile links</h5></div>
+                <div class="card-body">
+                    <?php foreach ($admin['networks'] as $network => $label): ?>
+                        <div class="mb-3">
+                            <label for="<?= $e($network) ?>" class="form-label fw-semibold"><?= $e($label) ?></label>
+                            <input type="text" class="form-control" id="<?= $e($network) ?>" name="<?= $e($network) ?>"
+                                value="<?= $e($admin['links'][$network]) ?>" placeholder="https://">
+                        </div>
+                    <?php endforeach; ?>
+                    <div class="form-text">Full links to your profile pages. Leave a network empty to leave it out. If the Schema service is installed, these also feed its structured data when its own links box is empty.</div>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>

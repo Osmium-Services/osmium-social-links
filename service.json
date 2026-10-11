@@ -1,0 +1,58 @@
+{
+    "id": "social-links",
+    "name": "Social Links",
+    "version": "0.1.0",
+    "description": "One place for the business's social profile URLs, printed as a list of links by a theme and available to other services such as Schema",
+    "category": "content",
+    "author": {
+        "name": "Gavin Cox"
+    },
+    "license": "proprietary",
+
+    "requires": {
+        "osmium": ">=1.0.0",
+        "php": ">=8.1",
+        "services": []
+    },
+
+    "autoload": [
+        "models"
+    ],
+
+    "admin": {
+        "menu": {
+            "section": "Content",
+            "items": [
+                {
+                    "id": "social-links",
+                    "label": "Social Links",
+                    "icon": "bx bx-share-alt",
+                    "route": "admin/settings/social-links",
+                    "activePattern": "admin/settings/social-links",
+                    "role": null
+                }
+            ]
+        },
+        "routes": {
+            "admin/settings/social-links": {
+                "controller": "controllers/SocialLinksController.php",
+                "class": "Osmium\\Services\\SocialLinks\\Controllers\\SocialLinksController",
+                "method": "index",
+                "title": "Social Links"
+            }
+        }
+    },
+
+    "frontend": {
+        "themeBlocks": [
+            {
+                "hook": "social-links",
+                "file": "theme/social-links.phtml"
+            }
+        ]
+    },
+
+    "setup": {
+        "postInstallNote": "Prints nothing until a link is saved on Content > Social Links. The 'social-links' hook is rendered in place by a theme (for example in its footer) with $template['serviceBlock']('social-links'); the markup is a plain list with a data-network attribute on each item for the theme to style. Other services read the saved URLs from this service's config context as $socialLinks['links'] without depending on it."
+    }
+}

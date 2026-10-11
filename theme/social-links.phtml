@@ -1,0 +1,13 @@
+<?php // Rendered in place by a theme: $template['serviceBlock']('social-links'). Expects $socialLinks (this
+// service's own config). Prints nothing when no link is saved. Plain markup for the theme to style: each item
+// carries data-network, and the link text is the network's name.
+use Osmium\Services\SocialLinks\Models\SocialLinksConfig;
+
+$saved = SocialLinksConfig::filled($socialLinks ?? []);
+if (!$saved) return;
+?>
+<ul class="social-links">
+<?php foreach ($saved as $network => $url): ?>
+    <li data-network="<?= \htmlspecialchars($network) ?>"><a href="<?= \htmlspecialchars($url) ?>" target="_blank" rel="noopener noreferrer"><?= \htmlspecialchars(SocialLinksConfig::NETWORKS[$network]) ?></a></li>
+<?php endforeach; ?>
+</ul>
