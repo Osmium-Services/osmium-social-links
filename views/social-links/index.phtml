@@ -32,11 +32,34 @@
                     <?php foreach ($admin['networks'] as $network => $label): ?>
                         <div class="mb-3">
                             <label for="<?= $e($network) ?>" class="form-label fw-semibold"><?= $e($label) ?></label>
-                            <input type="text" class="form-control" id="<?= $e($network) ?>" name="<?= $e($network) ?>"
-                                value="<?= $e($admin['links'][$network]) ?>" placeholder="https://">
+                            <div class="row g-2">
+                                <div class="col-md-7">
+                                    <input type="text" class="form-control" id="<?= $e($network) ?>" name="<?= $e($network) ?>"
+                                        value="<?= $e($admin['links'][$network]) ?>" placeholder="https://">
+                                </div>
+                                <div class="col-md-5">
+                                    <input type="text" class="form-control" name="icon_<?= $e($network) ?>" aria-label="<?= $e($label) ?> icon class"
+                                        value="<?= $e($admin['icons'][$network]) ?>" placeholder="icon class (optional)">
+                                </div>
+                            </div>
                         </div>
                     <?php endforeach; ?>
                     <div class="form-text">Full links to your profile pages. Leave a network empty to leave it out. If the Schema service is installed, these also feed its structured data when its own links box is empty.</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-lg-6">
+            <div class="card mb-4">
+                <div class="card-header"><h5 class="mb-0"><i class="bx bx-image-alt me-2"></i>Icons</h5></div>
+                <div class="card-body">
+                    <div class="mb-3">
+                        <label for="icon_pattern" class="form-label fw-semibold">Icon class pattern</label>
+                        <input type="text" class="form-control" id="icon_pattern" name="icon_pattern"
+                            value="<?= $e($admin['iconPattern']) ?>" placeholder="bx bxl-{network}">
+                        <div class="form-text">Leave empty for plain text links. Otherwise each link shows an icon from your theme's icon set: {network} becomes facebook, instagram, linkedin, youtube, tiktok, pinterest or x. Boxicons: <code>bx bxl-{network}</code>. Font Awesome: <code>fa-brands fa-{network}</code>.</div>
+                    </div>
+                    <div class="form-text"><strong>Your theme must load that icon set.</strong> This service does not load any icon font or CSS, so with an icon class set but no matching icon CSS the links show nothing. Icon names differ between sets, so use the per-network box beside a link to override one (X is <code>bx bxl-twitter-x</code> in a current Boxicons set, <code>fa-brands fa-x-twitter</code> in Font Awesome). The per-network box wins over the pattern.</div>
                 </div>
             </div>
         </div>

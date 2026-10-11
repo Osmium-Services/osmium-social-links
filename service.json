@@ -1,7 +1,7 @@
 {
     "id": "social-links",
     "name": "Social Links",
-    "version": "0.1.0",
+    "version": "0.2.0",
     "description": "One place for the business's social profile URLs, printed as a list of links by a theme and available to other services such as Schema",
     "category": "content",
     "author": {
@@ -53,6 +53,6 @@
     },
 
     "setup": {
-        "postInstallNote": "Prints nothing until a link is saved on Content > Social Links. The 'social-links' hook is rendered in place by a theme (for example in its footer) with $template['serviceBlock']('social-links'); the markup is a plain list with a data-network attribute on each item for the theme to style. Other services read the saved URLs from this service's config context as $socialLinks['links'] without depending on it."
+        "postInstallNote": "Prints nothing until a link is saved on Content > Social Links. The 'social-links' hook is rendered in place by a theme (for example in its footer) with $template['serviceBlock']('social-links'); the markup is a plain list with a data-network attribute on each item for the theme to style. Icons are opt-in: set an icon class pattern on the settings page, and the theme must load that icon set itself. Other services read the saved URLs from this service's config context as $socialLinks['links'] without depending on it."
     }
 }
