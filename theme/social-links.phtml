@@ -1,18 +1,18 @@
-<?php // Rendered in place by a theme: $template['serviceBlock']('social-links'). Expects $socialLinks (this
+<?php // Rendered in place by a theme: $template['serviceBlock']('social-links'). Expects $osmiumSocialLinks (this
 // service's own config). Prints nothing when no link is saved. Plain markup for the theme to style: each item
 // carries data-network. With an icon class (site-wide pattern or per-network override) the link holds an <i>
 // icon and takes its name from aria-label, so the theme must load that icon set; without one it is the
 // network's name as text. Never rely on an icon class here unless the theme loads the matching icon font/CSS.
-use Osmium\Services\SocialLinks\Models\SocialLinksConfig;
+use Osmium\Services\OsmiumSocialLinks\Models\OsmiumSocialLinksConfig;
 
-$saved = SocialLinksConfig::filled($socialLinks ?? []);
+$saved = OsmiumSocialLinksConfig::filled($osmiumSocialLinks ?? []);
 if (!$saved) return;
 
 $e = static fn(string $value): string => \htmlspecialchars($value);
 ?>
 <ul class="social-links">
 <?php foreach ($saved as $network => $url): ?>
-<?php $label = SocialLinksConfig::NETWORKS[$network]; $icon = SocialLinksConfig::iconClass($socialLinks, $network); ?>
+<?php $label = OsmiumSocialLinksConfig::NETWORKS[$network]; $icon = OsmiumSocialLinksConfig::iconClass($osmiumSocialLinks, $network); ?>
 <?php if ($icon !== ''): ?>
     <li data-network="<?= $e($network) ?>"><a href="<?= $e($url) ?>" target="_blank" rel="noopener noreferrer" aria-label="<?= $e($label) ?>"><i class="<?= $e($icon) ?>" aria-hidden="true"></i></a></li>
 <?php else: ?>

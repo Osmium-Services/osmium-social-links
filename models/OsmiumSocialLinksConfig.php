@@ -2,15 +2,15 @@
 
 declare(strict_types=1);
 
-namespace Osmium\Services\SocialLinks\Models;
+namespace Osmium\Services\OsmiumSocialLinks\Models;
 
 /**
- * Loads this service's own settings file (app/config/services/social-links.json.php).
+ * Loads this service's own settings file (app/config/services/osmium-social-links.json.php).
  *
- * Core passes get() to every theme block as $socialLinks (see ServiceLoader::serviceConfigContext),
+ * Core passes get() to every theme block as $osmiumSocialLinks (see ServiceLoader::serviceConfigContext),
  * so another service can read the saved URLs without depending on this one.
  */
-class SocialLinksConfig
+class OsmiumSocialLinksConfig
 {
     /** @var array<string, string> network key => label */
     public const NETWORKS = [
@@ -24,7 +24,7 @@ class SocialLinksConfig
     ];
 
     private static ?array $config = null;
-    private static string $configPath = 'app/config/services/social-links.json.php';
+    private static string $configPath = 'app/config/services/osmium-social-links.json.php';
 
     public static function get(): array
     {

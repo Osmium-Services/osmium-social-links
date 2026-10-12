@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace Osmium\Services\SocialLinks\Controllers;
+namespace Osmium\Services\OsmiumSocialLinks\Controllers;
 
 use Osmium\Modules\Admin\Core\AdminController;
-use Osmium\Services\SocialLinks\Models\SocialLinksConfig;
+use Osmium\Services\OsmiumSocialLinks\Models\OsmiumSocialLinksConfig;
 
 /**
  * Social links settings: a full-page form POST/redirect flow, like Cookie Consent and Schema.
@@ -15,18 +15,18 @@ use Osmium\Services\SocialLinks\Models\SocialLinksConfig;
  */
 class SocialLinksController extends AdminController
 {
-    private const CONFIG_FILE_PATH = 'app/config/services/social-links.json.php';
+    private const CONFIG_FILE_PATH = 'app/config/services/osmium-social-links.json.php';
 
     public function index(): void
     {
         $isPost = $_SERVER['REQUEST_METHOD'] === 'POST';
         if ($isPost) $this->handleSubmit();
 
-        $config = SocialLinksConfig::get();
+        $config = OsmiumSocialLinksConfig::get();
         $this->data['admin']['links'] = $config['links'];
         $this->data['admin']['icons'] = $config['icons'];
         $this->data['admin']['iconPattern'] = $config['iconPattern'];
-        $this->data['admin']['networks'] = SocialLinksConfig::NETWORKS;
+        $this->data['admin']['networks'] = OsmiumSocialLinksConfig::NETWORKS;
         $this->data['admin']['settingsSaved'] = $_SESSION['social_links_saved'] ?? false;
         $this->data['admin']['settingsError'] = $_SESSION['social_links_error'] ?? false;
         unset($_SESSION['social_links_saved'], $_SESSION['social_links_error']);
@@ -42,13 +42,13 @@ class SocialLinksController extends AdminController
             $this->redirect('settings/social-links/');
         }
 
-        $config = SocialLinksConfig::get();
+        $config = OsmiumSocialLinksConfig::get();
         $current = $config['links'];
         $errors = [];
         $links = [];
         $icons = [];
 
-        foreach (SocialLinksConfig::NETWORKS as $network => $label) {
+        foreach (OsmiumSocialLinksConfig::NETWORKS as $network => $label) {
             $links[$network] = $this->readUrl(
                 network: $network,
                 label: $label,
@@ -57,7 +57,7 @@ class SocialLinksController extends AdminController
             );
         }
 
-        foreach (SocialLinksConfig::NETWORKS as $network => $label) {
+        foreach (OsmiumSocialLinksConfig::NETWORKS as $network => $label) {
             $icons[$network] = $this->readIcon(field: "icon_{$network}", label: $label, current: $config['icons'][$network], errors: $errors);
         }
 
@@ -67,7 +67,7 @@ class SocialLinksController extends AdminController
 
         $this->admin->model->changelog->log(description: 'Updated social links', recordType: 'settings');
 
-        SocialLinksConfig::clearCache();
+        OsmiumSocialLinksConfig::clearCache();
 
         $_SESSION['social_links_saved'] = true;
         if ($errors) $_SESSION['social_links_error'] = \implode(' ', $errors);
