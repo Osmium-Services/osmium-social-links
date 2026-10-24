@@ -1,7 +1,7 @@
 {
     "id": "osmium-social-links",
     "name": "Osmium Social Links",
-    "version": "0.3.1",
+    "version": "0.3.2",
     "description": "One place for the business's social profile URLs, shown as a list of links by a theme and available to other services such as Schema",
     "category": "content",
     "author": {
