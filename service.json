@@ -1,7 +1,7 @@
 {
     "id": "osmium-social-links",
     "name": "Osmium Social Links",
-    "version": "0.3.0",
+    "version": "0.3.1",
     "description": "One place for the business's social profile URLs, shown as a list of links by a theme and available to other services such as Schema",
     "category": "content",
     "author": {
@@ -25,7 +25,7 @@
             "items": [
                 {
                     "id": "social-links",
-                    "label": "Social Links",
+                    "label": "Osmium Social Links",
                     "icon": "bx bx-share-alt",
                     "route": "admin/settings/social-links",
                     "activePattern": "admin/settings/social-links",
