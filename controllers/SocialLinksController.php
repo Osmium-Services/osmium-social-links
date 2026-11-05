@@ -11,7 +11,7 @@ use Osmium\Services\OsmiumSocialLinks\Models\OsmiumSocialLinksConfig;
  * Social links settings: a full-page form POST/redirect flow, like Cookie Consent and Schema.
  *
  * Routes:
- *   - index() → /admin/settings/social-links/  (GET shows the form, POST saves it)
+ *   - index() → /admin/social-links/  (GET shows the form, POST saves it)
  */
 class SocialLinksController extends AdminController
 {
@@ -39,7 +39,7 @@ class SocialLinksController extends AdminController
         $csrfValid = $this->admin->auth->validateCsrf();
         if (!$csrfValid) {
             $_SESSION['social_links_error'] = 'Invalid form submission. Please try again.';
-            $this->redirect('settings/social-links/');
+            $this->redirect('social-links/');
         }
 
         $config = OsmiumSocialLinksConfig::get();
@@ -71,7 +71,7 @@ class SocialLinksController extends AdminController
 
         $_SESSION['social_links_saved'] = true;
         if ($errors) $_SESSION['social_links_error'] = \implode(' ', $errors);
-        $this->redirect('settings/social-links/');
+        $this->redirect('social-links/');
     }
 
     private function readUrl(string $network, string $label, string $current, array &$errors): string

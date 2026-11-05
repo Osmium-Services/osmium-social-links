@@ -1,7 +1,7 @@
 {
     "id": "osmium-social-links",
     "name": "Osmium Social Links",
-    "version": "0.3.3",
+    "version": "0.4.0",
     "description": "One place for the business's social profile URLs, shown as a list of links by a theme and available to other services such as Schema",
     "category": "content",
     "author": {
@@ -27,14 +27,16 @@
                     "id": "social-links",
                     "label": "Osmium Social Links",
                     "icon": "bx bx-share-alt",
-                    "route": "admin/settings/social-links",
-                    "activePattern": "admin/settings/social-links",
+                    "route": "admin/social-links",
+                    "activePattern": "admin/social-links",
+                    "color": "#1da1f2",
+                    "placement": "top",
                     "role": null
                 }
             ]
         },
         "routes": {
-            "admin/settings/social-links": {
+            "admin/social-links": {
                 "controller": "controllers/SocialLinksController.php",
                 "class": "Osmium\\Services\\OsmiumSocialLinks\\Controllers\\SocialLinksController",
                 "method": "index",
