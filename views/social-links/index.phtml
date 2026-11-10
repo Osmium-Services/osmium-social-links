@@ -24,32 +24,24 @@
 
 <form method="POST" action="<?= $admin['basePath'] ?>social-links/" id="settings-form">
     <input type="hidden" name="token" value="<?= $template['formToken'] ?? '' ?>">
-    <div class="row">
-        <div class="col-lg-6">
+    <div class="row justify-content-center">
+        <div class="col-lg-4">
             <div class="card mb-4">
                 <div class="card-header"><h5 class="mb-0"><i class="bx bx-share-alt me-2"></i>Profile links</h5></div>
                 <div class="card-body">
                     <?php foreach ($admin['networks'] as $network => $label): ?>
                         <div class="mb-3">
                             <label for="<?= $e($network) ?>" class="form-label fw-semibold"><?= $e($label) ?></label>
-                            <div class="row g-2">
-                                <div class="col-md-7">
-                                    <input type="text" class="form-control" id="<?= $e($network) ?>" name="<?= $e($network) ?>"
-                                        value="<?= $e($admin['links'][$network]) ?>" placeholder="https://">
-                                </div>
-                                <div class="col-md-5">
-                                    <input type="text" class="form-control" name="icon_<?= $e($network) ?>" aria-label="<?= $e($label) ?> icon class"
-                                        value="<?= $e($admin['icons'][$network]) ?>" placeholder="icon class (optional)">
-                                </div>
-                            </div>
+                            <input type="text" class="form-control mb-2" id="<?= $e($network) ?>" name="<?= $e($network) ?>"
+                                value="<?= $e($admin['links'][$network]) ?>" placeholder="https://">
+                            <input type="text" class="form-control" name="icon_<?= $e($network) ?>" aria-label="<?= $e($label) ?> icon class"
+                                value="<?= $e($admin['icons'][$network]) ?>" placeholder="icon class (optional)">
                         </div>
                     <?php endforeach; ?>
                     <div class="form-text">Full links to your profile pages. Leave a network empty to leave it out. If the Schema service is installed, these also feed its structured data when its own links box is empty.</div>
                 </div>
             </div>
-        </div>
 
-        <div class="col-lg-6">
             <div class="card mb-4">
                 <div class="card-header"><h5 class="mb-0"><i class="bx bx-image-alt me-2"></i>Icons</h5></div>
                 <div class="card-body">
