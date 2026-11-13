@@ -19,6 +19,15 @@
         "models"
     ],
 
+    "hooks": {
+        "adminbar.context": [
+            "Osmium\\Services\\OsmiumSocialLinks\\Models\\SocialLinksAdminBar::context"
+        ],
+        "adminbar.links": [
+            "Osmium\\Services\\OsmiumSocialLinks\\Models\\SocialLinksAdminBar::links"
+        ]
+    },
+
     "admin": {
         "menu": {
             "section": "Content",

@@ -24,6 +24,7 @@ class OsmiumSocialLinksConfig
     ];
 
     private static ?array $config = null;
+    private static bool $shown = false;
     private static string $configPath = 'app/config/services/osmium-social-links.json.php';
 
     public static function get(): array
@@ -53,6 +54,23 @@ class OsmiumSocialLinksConfig
         self::$config['iconPattern'] = \trim((string) ($saved['iconPattern'] ?? ''));
 
         return self::$config;
+    }
+
+    /** The block calls this when it prints links, so the staff bar can offer "Social links" on that page. */
+    public static function noteShown(): void
+    {
+        self::$shown = true;
+    }
+
+    public static function wasShown(): bool
+    {
+        return self::$shown;
+    }
+
+    /** For tests: forget that the links were shown. */
+    public static function forgetShown(): void
+    {
+        self::$shown = false;
     }
 
     /**
