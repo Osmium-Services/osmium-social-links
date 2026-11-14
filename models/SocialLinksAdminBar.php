@@ -30,6 +30,6 @@ class SocialLinksAdminBar
         $isContext = ($payload['context'] ?? '') === 'social-links:all';
         if (!$isContext) return null;
 
-        return [['label' => 'Social links', 'icon' => 'bx-share-alt', 'path' => 'social-links/', 'primary' => true, 'order' => 90]];
+        return [['label' => 'Edit social links', 'icon' => 'bx-share-alt', 'path' => 'social-links/', 'primary' => true, 'order' => 90]];
     }
 }

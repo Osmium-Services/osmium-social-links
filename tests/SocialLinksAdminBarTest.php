@@ -38,7 +38,7 @@ final class SocialLinksAdminBarTest extends TestCase
         $links = SocialLinksAdminBar::links(['context' => 'social-links:all']);
 
         $this->assertSame('social-links/', $links[0]['path']);
-        $this->assertSame('Social links', $links[0]['label']);
+        $this->assertSame('Edit social links', $links[0]['label']);
         $this->assertSame('bx-share-alt', $links[0]['icon']);
         $this->assertSame(90, $links[0]['order']); // Supporting: after the page's own and any main service link
     }
