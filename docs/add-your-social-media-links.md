@@ -1,0 +1,19 @@
+---
+title: Add your social media links
+tags: social, facebook, instagram, linkedin, youtube, tiktok, pinterest, x, twitter, icons, profile
+---
+
+**Osmium Social Links** is the one place for your business's social media addresses.
+
+## Add your profiles
+
+1. Open **Osmium Social Links**.
+2. Under **Profile links**, paste the full address of each profile, for example your Facebook page. The networks are Facebook, Instagram, LinkedIn, YouTube, TikTok, Pinterest and X.
+3. Leave a network empty to leave it out.
+4. Press **Save Settings**.
+
+Your site's design shows them as a list of links. If the Osmium Schema service is installed, these also feed its structured data when its own links box is empty.
+
+## Icons
+
+Leave **Icon class pattern** empty for plain text links. To show icons instead, your site's design must load an icon set, and this service does not load one. Ask your developer to set the pattern, because icon names differ between sets.
