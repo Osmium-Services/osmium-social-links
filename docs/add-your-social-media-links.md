@@ -1,6 +1,7 @@
 ---
 title: Add your social media links
 tags: social, facebook, instagram, linkedin, youtube, tiktok, pinterest, x, twitter, icons, profile
+page: admin/social-links
 ---
 
 **Osmium Social Links** is the one place for your business's social media addresses.
