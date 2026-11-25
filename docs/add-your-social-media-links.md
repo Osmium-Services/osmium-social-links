@@ -13,8 +13,4 @@ page: admin/social-links
 3. Leave a network empty to leave it out.
 4. Press **Save Settings**.
 
-Your site's design shows them as a list of links. If the Osmium Schema service is installed, these also feed its structured data when its own links box is empty.
-
-## Icons
-
-Leave **Icon class pattern** empty for plain text links. To show icons instead, your site's design must load an icon set, and this service does not load one. Ask your developer to set the pattern, because icon names differ between sets.
+Your site's design shows them as a list of links, with the icons chosen by the design. If the Osmium Schema service is installed, these also feed its structured data when its own links box is empty.

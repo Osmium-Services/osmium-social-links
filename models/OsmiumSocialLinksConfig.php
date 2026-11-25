@@ -45,13 +45,10 @@ class OsmiumSocialLinksConfig
         $decoded = \json_decode(\substr(string: $content, offset: $jsonStart), associative: true);
         $saved = \is_array($decoded) ? ($decoded['socialLinks'] ?? []) : [];
         $savedLinks = \is_array($saved['links'] ?? null) ? $saved['links'] : [];
-        $savedIcons = \is_array($saved['icons'] ?? null) ? $saved['icons'] : [];
 
         foreach (self::NETWORKS as $network => $label) {
             self::$config['links'][$network] = \trim((string) ($savedLinks[$network] ?? ''));
-            self::$config['icons'][$network] = \trim((string) ($savedIcons[$network] ?? ''));
         }
-        self::$config['iconPattern'] = \trim((string) ($saved['iconPattern'] ?? ''));
 
         return self::$config;
     }
@@ -81,21 +78,6 @@ class OsmiumSocialLinksConfig
         return \array_filter($config['links'] ?? [], static fn($url) => $url !== '');
     }
 
-    /**
-     * The icon class for a network: its own override, else the site-wide pattern with {network}
-     * replaced by the network key. Empty means no icon, so the link prints as plain text.
-     */
-    public static function iconClass(array $config, string $network): string
-    {
-        $override = \trim((string) ($config['icons'][$network] ?? ''));
-        if ($override !== '') return $override;
-
-        $pattern = \trim((string) ($config['iconPattern'] ?? ''));
-        $hasPattern = $pattern !== '';
-
-        return $hasPattern ? \str_replace('{network}', $network, $pattern) : '';
-    }
-
     public static function clearCache(): void
     {
         self::$config = null;
@@ -103,8 +85,6 @@ class OsmiumSocialLinksConfig
 
     public static function defaults(): array
     {
-        $empty = \array_fill_keys(\array_keys(self::NETWORKS), '');
-
-        return ['links' => $empty, 'iconPattern' => '', 'icons' => $empty];
+        return ['links' => \array_fill_keys(\array_keys(self::NETWORKS), '')];
     }
 }

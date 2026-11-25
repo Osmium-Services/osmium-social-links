@@ -24,8 +24,6 @@ class SocialLinksController extends AdminController
 
         $config = OsmiumSocialLinksConfig::get();
         $this->data['admin']['links'] = $config['links'];
-        $this->data['admin']['icons'] = $config['icons'];
-        $this->data['admin']['iconPattern'] = $config['iconPattern'];
         $this->data['admin']['networks'] = OsmiumSocialLinksConfig::NETWORKS;
         $this->data['admin']['settingsSaved'] = $_SESSION['social_links_saved'] ?? false;
         $this->data['admin']['settingsError'] = $_SESSION['social_links_error'] ?? false;
@@ -46,7 +44,6 @@ class SocialLinksController extends AdminController
         $current = $config['links'];
         $errors = [];
         $links = [];
-        $icons = [];
 
         foreach (OsmiumSocialLinksConfig::NETWORKS as $network => $label) {
             $links[$network] = $this->readUrl(
@@ -57,13 +54,7 @@ class SocialLinksController extends AdminController
             );
         }
 
-        foreach (OsmiumSocialLinksConfig::NETWORKS as $network => $label) {
-            $icons[$network] = $this->readIcon(field: "icon_{$network}", label: $label, current: $config['icons'][$network], errors: $errors);
-        }
-
-        $iconPattern = $this->readIcon(field: 'icon_pattern', label: 'Icon class pattern', current: $config['iconPattern'], errors: $errors, allowPlaceholder: true);
-
-        $this->saveConfig(links: $links, icons: $icons, iconPattern: $iconPattern);
+        $this->saveConfig(links: $links);
 
         $this->admin->model->changelog->log(description: 'Updated social links', recordType: 'settings');
 
@@ -87,32 +78,14 @@ class SocialLinksController extends AdminController
         return $current;
     }
 
-    /**
-     * Icon classes are written into a class attribute, so only class-name characters are allowed.
-     */
-    private function readIcon(string $field, string $label, string $current, array &$errors, bool $allowPlaceholder = false): string
-    {
-        $value = \trim((string) ($_POST[$field] ?? ''));
-        $isEmpty = $value === '';
-        if ($isEmpty) return '';
-
-        $allowed = $allowPlaceholder ? '/^[A-Za-z0-9_\- {}]+$/' : '/^[A-Za-z0-9_\- ]+$/';
-        $isValid = (bool) \preg_match($allowed, $value);
-        $placeholderOk = !$allowPlaceholder || \substr_count($value, '{') === \substr_count($value, '{network}');
-        if ($isValid && $placeholderOk) return $value;
-
-        $errors[] = "{$label} may only hold class names (letters, numbers, - and _)" . ($allowPlaceholder ? ' and {network}' : '') . ' - kept the previous value.';
-        return $current;
-    }
-
-    private function saveConfig(array $links, array $icons, string $iconPattern): void
+    private function saveConfig(array $links): void
     {
         $dir = \dirname(self::CONFIG_FILE_PATH);
         $dirExists = \is_dir($dir);
         if (!$dirExists) \mkdir(directory: $dir, permissions: 0755, recursive: true);
 
         $json = \json_encode(
-            value: ['socialLinks' => ['links' => $links, 'iconPattern' => $iconPattern, 'icons' => $icons]],
+            value: ['socialLinks' => ['links' => $links]],
             flags: JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE,
         );
 
